@@ -2,14 +2,21 @@
 """ module for base class """
 from uuid import uuid4
 from datetime import datetime
+from .__init__ import storage
 
 
 class BaseModel():
     """ BaseModel class- Main class """
     def __init__(self, *args, **kwargs):
+        """ constructor """
         self.id = str(uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
+
+        if len(kwargs.items()) <= 0:
+            storage.new(self)
+            return
+
         for key, value in kwargs.items():
             if key == "__class__":
                 continue
@@ -26,6 +33,8 @@ class BaseModel():
         """ Pub inst method """
         self.updated_at = datetime.now()
 
+        storage.new(self)
+        storage.save()
     def to_dict(self):
         """ Pub inst method """
         my_dict = {}
