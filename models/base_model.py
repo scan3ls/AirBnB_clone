@@ -35,6 +35,7 @@ class BaseModel():
 
         storage.new(self)
         storage.save()
+
     def to_dict(self):
         """ Pub inst method """
         my_dict = {}
