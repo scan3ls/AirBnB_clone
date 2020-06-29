@@ -1,26 +1,20 @@
 {
-    "BaseModel.342f61ae-3883-4f1d-826b-cd6a3de324ad": {
+    "BaseModel.33721109-b190-4308-bc11-ea1c5eb1209f": {
         "__class__": "BaseModel",
-        "created_at": "2020-06-26T21:17:00.779345",
-        "id": "342f61ae-3883-4f1d-826b-cd6a3de324ad",
-        "my_number": 89,
-        "name": "Holberton",
-        "updated_at": "2020-06-26T21:17:00.779383"
+        "created_at": "2020-06-29T21:49:18.969477",
+        "id": "33721109-b190-4308-bc11-ea1c5eb1209f",
+        "updated_at": "2020-06-29T21:49:18.969521"
     },
-    "BaseModel.4b012554-1bc7-45db-b568-cb27cecfcad4": {
-        "__class__": "BaseModel",
-        "created_at": "2020-06-26T21:16:47.399592",
-        "id": "4b012554-1bc7-45db-b568-cb27cecfcad4",
-        "my_number": 89,
-        "name": "Holberton",
-        "updated_at": "2020-06-26T21:16:47.399655"
+    "Place.04e965c1-ffa7-4c95-90d8-14e37326f492": {
+        "__class__": "Place",
+        "created_at": "2020-06-29T21:57:05.390292",
+        "id": "04e965c1-ffa7-4c95-90d8-14e37326f492",
+        "updated_at": "2020-06-29T21:57:05.390339"
     },
-    "BaseModel.b39d73ea-d5f4-442d-ab03-25a8853b8b4f": {
-        "__class__": "BaseModel",
-        "created_at": "2020-06-26T21:15:55.589421",
-        "id": "b39d73ea-d5f4-442d-ab03-25a8853b8b4f",
-        "my_number": 89,
-        "name": "Holberton",
-        "updated_at": "2020-06-26T21:15:55.589471"
+    "User.b2174af7-2103-46e7-8a93-6d7e42d2e606": {
+        "__class__": "User",
+        "created_at": "2020-06-29T21:49:21.183320",
+        "id": "b2174af7-2103-46e7-8a93-6d7e42d2e606",
+        "updated_at": "2020-06-29T21:49:21.183372"
     }
 }

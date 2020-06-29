@@ -5,6 +5,12 @@ import cmd
 import json
 from models.base_model import BaseModel
 import models.base_model
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
@@ -52,7 +58,9 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
             return
         kwarg = objDict[name]
-        print(BaseModel(**kwarg))
+        obj = assignCls(arg, kwarg)
+        print(obj)
+        del(obj)
 
     def help_show(self):
         """ show help """
@@ -83,14 +91,21 @@ class HBNBCommand(cmd.Cmd):
             'Amenity', 'Place',
             'Review', 'BaseModel'
         ]
-        if arg not in clsList:
+        empty = False
+        if arg == "":
+            empty = True
+        elif arg not in clsList:
             print("** class doesn't exist **")
             return
         allList = []
         with open('file.json', 'r') as f:
             objDict = json.load(f)
         for key in objDict:
-            obj = BaseModel(objDict[key])
+            obj_class = objDict[key]["__class__"]
+            if obj_class != arg \
+                    and empty is False:
+                continue
+            obj = assignCls(obj_class, objDict[key])
             allList.append(str(obj))
             del(obj)
         print(allList)
@@ -118,14 +133,13 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return
         attributeName = updateObj[2]
-        print("\t{}!!!!!".format(updateObj[3]))
+
         updateObj.pop(2)
         updateObj.pop(1)
-        updateObj.pop(0)
+        class_name = updateObj.pop(0)
         value = ' '.join(updateObj).replace('"', '')
-        print("\t{}!!!!!".format(value))
-        newObj = BaseModel(**objDict[name])
-        """ to do """
+
+        newObj = assignCls(class_name, objDict[name])
         setattr(newObj, attributeName, value)
         newObj.save()
         del newObj
@@ -135,8 +149,12 @@ class HBNBCommand(cmd.Cmd):
         pass
 
 
-def assignCls(arg):
+def assignCls(args, kwargs={}):
     """assigning class obj """
+
+    arg_list = args.split(" ")
+    arg = arg_list[0]
+
     if not arg:
         print("** class name missing **")
         return None
@@ -146,19 +164,19 @@ def assignCls(arg):
         'Review', 'BaseModel'
     ]
     if arg == 'User':
-        return None
+        return User(**kwargs)
     if arg == 'State':
-        return None
+        return State(**kwargs)
     if arg == 'City':
-        return None
+        return City(**kwargs)
     if arg == 'Amenity':
-        return None
+        return Amenity(**kwargs)
     if arg == 'Place':
-        return None
+        return Place(**kwargs)
     if arg == 'Review':
-        return None
+        return Review(**kwargs)
     if arg == 'BaseModel':
-        return BaseModel()
+        return BaseModel(**kwargs)
     if arg not in clsList:
         print("** class doesn't exist **")
         return None
