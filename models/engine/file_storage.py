@@ -34,7 +34,7 @@ class FileStorage():
         """ serializes __objects to JSON file """
 
         with open(type(self).__file_path, 'w') as f:
-            json.dump(type(self).__objects, f, sort_keys=True, indent=4)
+            json.dump(type(self).__objects, f)
 
     def reload(self):
         """ deserialize the JSON file to __objects """
