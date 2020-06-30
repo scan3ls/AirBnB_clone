@@ -18,6 +18,15 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbnb)'
 
+    def emptyline(self):
+        """ override emptyline func """
+        pass
+
+    def onecmd(self, arg):
+        """ overrride onecmd func """
+        print()
+        return cmd.Cmd.onecmd(self, arg)
+
     def do_quit(self, arg):
         """ Close """
         exit()
