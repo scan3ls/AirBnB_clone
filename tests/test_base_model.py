@@ -3,7 +3,7 @@
 
 import unittest
 from models.base_model import BaseModel
-from datetime import datetime
+import time
 
 
 class test_BaseModel(unittest.TestCase):
@@ -38,16 +38,17 @@ class test_BaseModel(unittest.TestCase):
         stridObj = strobjList.pop(0)
         dictObjOnly = ' '.join(strobjList)
 
-        self.assertEqual(typeObj, strtypeObj) 
+        self.assertEqual(typeObj, strtypeObj)
         self.assertEqual(base_id, stridObj)
         self.assertEqual(base_modelDict, dictObjOnly)
 
     def test_save(self):
         """ test for save instance method """
-        pass
-        # base_modelObj = BaseModel()
-        # base_modelObj.updated_at = datetime.now()
-        # self.assertEqual(base_modelObj.updated_at, base_modelObj.save())
+        base_modelObj = BaseModel()
+        base_oldUpdated = base_modelObj.updated_at
+        time.sleep(2)
+        base_modelObj.save()
+        self.assertNotEqual(base_modelObj, base_oldUpdated)
 
     def test_to_dict(self):
         """ test for to_dict instance method """
