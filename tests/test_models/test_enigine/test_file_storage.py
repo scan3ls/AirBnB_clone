@@ -14,7 +14,7 @@ from models.place import Place
 from models.review import Review
 
 
-class test_amenity(unittest.TestCase):
+class test_FileStorage(unittest.TestCase):
     """ test class """
 
     def save_main(self):
