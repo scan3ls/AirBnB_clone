@@ -32,12 +32,12 @@ class HBNBCommand(cmd.Cmd):
 
         if pos_period == -1:
             return line
-        
+
         if pos_double_quote != -1 and pos_double_quote < pos_period:
             return line
 
         new_line = parse(line)
-        return new_line        
+        return new_line
 
     def do_quit(self, arg):
         """ Close """
@@ -73,7 +73,7 @@ class HBNBCommand(cmd.Cmd):
         name = condChk(arg)
         if name is None:
             return
-        
+
         try:
             with open('file.json', 'r') as f:
                 objDict = json.load(f)
@@ -235,6 +235,7 @@ def condChk(arg):
         print("** instance id missing **")
         return None
     return argList[0] + "." + argList[1]
+
 
 def parse(line):
     """ parse line for cmd & args """
