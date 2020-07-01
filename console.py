@@ -24,8 +24,20 @@ class HBNBCommand(cmd.Cmd):
 
     def onecmd(self, arg):
         """ overrride onecmd func """
-        print()
         return cmd.Cmd.onecmd(self, arg)
+
+    def precmd(self, line):
+        """ parse line for cmd & args """
+        pos_double_quote, pos_period = line.find('"'), line.find('.')
+
+        if pos_period == -1:
+            return line
+        
+        if pos_double_quote != -1 and pos_double_quote < pos_period:
+            return line
+
+        new_line = parse(line)
+        return new_line        
 
     def do_quit(self, arg):
         """ Close """
@@ -61,8 +73,13 @@ class HBNBCommand(cmd.Cmd):
         name = condChk(arg)
         if name is None:
             return
-        with open('file.json', 'r') as f:
-            objDict = json.load(f)
+        
+        try:
+            with open('file.json', 'r') as f:
+                objDict = json.load(f)
+        except:
+            return
+
         if name not in objDict:
             print("** no instance found **")
             return
@@ -80,8 +97,12 @@ class HBNBCommand(cmd.Cmd):
         name = condChk(arg)
         if name is None:
             return
-        with open('file.json', 'r') as f:
-            objDict = json.load(f)
+        try:
+            with open('file.json', 'r') as f:
+                objDict = json.load(f)
+        except:
+            return
+
         if name not in objDict:
             print("** no instance found **")
             return
@@ -107,8 +128,12 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         allList = []
-        with open('file.json', 'r') as f:
-            objDict = json.load(f)
+        try:
+            with open('file.json', 'r') as f:
+                objDict = json.load(f)
+        except:
+            return
+
         for key in objDict:
             obj_class = objDict[key]["__class__"]
             if obj_class != arg \
@@ -211,6 +236,26 @@ def condChk(arg):
         return None
     return argList[0] + "." + argList[1]
 
+def parse(line):
+    """ parse line for cmd & args """
+    cmd_list = line.split('.')
+    class_name = cmd_list[0]
+    cmd_list = cmd_list[1].split('(')
+    cmd = cmd_list[0]
+    arg = cmd_list[1][:-1]
+
+    arg_list = arg.split(', ')
+    arg_list[0] = arg_list[0].replace('"', '')
+    try:
+        arg_list[1] = arg_list[1].replace('"', '')
+    except:
+        pass
+
+    arg = " ".join(arg_list)
+    cmd_list = [cmd, class_name, arg]
+    new_line = " ".join(cmd_list)
+
+    return (new_line)
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
